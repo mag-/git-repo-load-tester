@@ -13,7 +13,7 @@ NUM_COMMITS = 100000
 if os.path.exists('/scratch'):
     REPO_PATH = '/scratch/git/big_repo'
 else:
-    REPO_PATH = './big_repo'
+    REPO_PATH = os.path.abspath('./big_repo')
 SRC_DIR = 'src'
 FILE_PREFIX = 'file_'
 FILE_EXTENSION = '.c'
@@ -23,9 +23,10 @@ os.makedirs(os.path.join(REPO_PATH, SRC_DIR), exist_ok=True)
 
 # Create 1000 files each with 1000 lines
 def create_files():
+    os.chdir(REPO_PATH)
     for i in range(NUM_FILES):
         file_name = f"{FILE_PREFIX}{i}{FILE_EXTENSION}"
-        with open(os.path.join(REPO_PATH, SRC_DIR, file_name), 'w') as file:
+        with open(os.path.join(SRC_DIR, file_name), 'w') as file:
             for _ in range(LINES_PER_FILE):
                 # Creating a realistic line of code, roughly 50-100 characters
                 line = ''.join(random.choices(string.ascii_letters + string.digits + " ", k=random.randint(50, 100)))
