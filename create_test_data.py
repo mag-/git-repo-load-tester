@@ -10,7 +10,10 @@ from tqdm import tqdm
 NUM_FILES = 1000
 LINES_PER_FILE = 1000
 NUM_COMMITS = 100000
-REPO_PATH = '/scratch/git/big_repo'
+if os.path.exists('/scratch'):
+    REPO_PATH = '/scratch/git/big_repo'
+else:
+    REPO_PATH = './big_repo'
 SRC_DIR = 'src'
 FILE_PREFIX = 'file_'
 FILE_EXTENSION = '.c'
